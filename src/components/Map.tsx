@@ -1,6 +1,6 @@
 /** global kakao */
 import Script from "next/script";
-import * as stores from "@/data/store_data.json";
+import { Dispatch, SetStateAction } from "react";
 
 declare global {
   interface Window {
@@ -10,7 +10,11 @@ declare global {
 const DEFAULT_LAT = 37.479625203;
 const DEFAULT_LNG = 127.03088379;
 
-export default function Map() {
+interface MapProps {
+  setMap: Dispatch<SetStateAction<any>>;
+}
+
+export default function Map({ setMap }: MapProps) {
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
@@ -20,17 +24,7 @@ export default function Map() {
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
-      // 실당 데이터 마커 띄우기
-      stores?.["DATA"]?.map((store) => {
-        var markerPosition = new window.kakao.maps.LatLng(
-          store?.y_dnts,
-          store?.x_cnts
-        );
-
-        var marker = new window.kakao.maps.Marker({ position: markerPosition });
-
-        marker.setMap(map);
-      });
+      setMap(map);
     });
   };
   return (
