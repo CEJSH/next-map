@@ -3,7 +3,6 @@ import { useState } from "react";
 import Map from "@/components/Map";
 import Markers from "@/components/Markers";
 
-import * as stores from "@/data/store_data.json";
 import StoreBox from "@/components/StoreBox";
 import { StoreType } from "@/interface";
 
