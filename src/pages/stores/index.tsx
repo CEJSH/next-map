@@ -1,4 +1,5 @@
 import { StoreType } from "@/interface";
+import axios from "axios";
 import Image from "next/image";
 
 export default function StoreListPage({ stores }: { stores: StoreType[] }) {
@@ -14,27 +15,27 @@ export default function StoreListPage({ stores }: { stores: StoreType[] }) {
                   height={48}
                   alt="아이콘 이미지"
                   src={
-                    store?.bizcnd_code_nm
-                      ? `/images/markers/${store?.bizcnd_code_nm}.png`
+                    store?.category
+                      ? `/images/markers/${store?.category}.png`
                       : "/images/markers/default.png"
                   }
                 />
                 <div>
                   <div className="text-sm font-semibold leading-9 text-gray-900">
-                    {store?.upso_nm}
+                    {store?.name}
                   </div>
                   <div className="mt-1 text-xs font-semibold leading-5 text-gray-500">
-                    {store?.upso_nm}
+                    {store?.storeType}
                   </div>
                 </div>
               </div>
               <div className="hidden sm:flex sm:flex-col sm:items-end">
                 <div className="text-sm font-semibold leading-9 text-gray-900">
-                  {store?.rdn_code_nm}
+                  {store?.address}
                 </div>{" "}
                 <div className="mt-1 text-xs font-semibold leading-5 text-gray-500">
-                  {store?.tel_no || "번호없음"} | {store?.crtfc_gbn_nm} |{" "}
-                  {store?.bizcnd_code_nm}
+                  {store?.phone || "번호없음"} | {store?.foodCertifyName} |{" "}
+                  {store?.category}
                 </div>
               </div>
             </li>
@@ -46,9 +47,7 @@ export default function StoreListPage({ stores }: { stores: StoreType[] }) {
 }
 
 export async function getServerSideProps() {
-  const stores = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/stores`
-  ).then((res) => res.json());
+  const stores = await axios(`${process.env.NEXT_PUBLIC_API_URL}/api/stores/`);
 
-  return { props: { stores } };
+  return { props: { stores: stores.data } };
 }
