@@ -11,6 +11,7 @@ export default function LoginPage() {
   const { status, data: session } = useSession();
   const router = useRouter();
 
+  // url입력하여 접근하는 경우 대비
   useEffect(() => {
     if (status === "authenticated") {
       router.replace("/");
@@ -35,7 +36,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => {
-              signIn("google");
+              signIn("google", { callbackUrl: "/" });
             }}
             className="text-white flex gap-4 bg-[#4285F4] hover:bg-[#4285F4]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
@@ -45,7 +46,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => {
-              signIn("naver");
+              signIn("naver", { callbackUrl: "/" });
             }}
             className="text-white flex gap-5 bg-[#2db400] hover:bg-[#2db400]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
@@ -55,7 +56,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => {
-              // signIn("kakao");
+              signIn("kakao", { callbackUrl: "/" });
             }}
             className="text-black flex gap-4 bg-[#fef01b] hover:bg-[#fef01b]/90 font-medium rounded-lg w-full px-5 py-4 text-center items-center justify-center"
           >
