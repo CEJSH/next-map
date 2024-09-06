@@ -7,12 +7,13 @@ interface ResponseType {
   limit?: string;
   q?: string;
   district?: string;
+  id?: string;
 }
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<StoreApiResponse | StoreType[] | StoreType | null>
 ) {
-  const { page = "", limit = "", q, district }: ResponseType = req.query;
+  const { page = "", limit = "", q, district, id }: ResponseType = req.query;
   const skipPage = parseInt(page) - 1;
 
   if (req.method === "POST") {
@@ -54,6 +55,13 @@ export default async function handler(
     });
 
     return res.status(200).json(result);
+  } else if (req.method === "DELETE") {
+    // 데이터 삭제
+    if (id) {
+      const result = await prisma.store.delete({ where: { id: parseInt(id) } });
+      return res.status(200).json(result);
+    }
+    return res.status(500).json(null);
   } else {
     // get 요청을 처리한다.
     if (page) {
