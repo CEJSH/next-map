@@ -3,6 +3,8 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import AddressSearch from "@/components/\bAddressSearch";
+import { StoreType } from "@/interface";
 
 export default function StoreNewPage() {
   const router = useRouter();
@@ -10,17 +12,16 @@ export default function StoreNewPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm<StoreType>();
 
   return (
     <form
       className="px-4 md:max-w-4xl mx-auto py-8"
       onSubmit={handleSubmit(async (data) => {
-        console.log(data);
         try {
           const result = await axios.post("/api/stores", data);
           router.replace(`/stores/${result?.data?.id}`);
-          console.log(result);
 
           if (result.status === 200) {
             // 성공 케이스
@@ -75,7 +76,7 @@ export default function StoreNewPage() {
               <div className="mt-2">
                 <select
                   {...register("category", { required: true })}
-                  className="px-2 outline-none block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="px-2 outline-none block w-full rounded-md border-0 !py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
                   <option value="">카테고리 선택</option>
                   {CATEGORY_ARR?.map((category) => (
@@ -110,26 +111,11 @@ export default function StoreNewPage() {
                 )}
               </div>
             </div>
-
-            <div className="col-span-full">
-              <label
-                htmlFor="address"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                주소(다음 주소 검색 API)
-              </label>
-              <div className="mt-2">
-                <input
-                  {...register("address", { required: true })}
-                  className="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                {errors?.address?.type === "required" && (
-                  <div className="pt-2 text-xs text-red-600">
-                    필수 입력 사항입니다
-                  </div>
-                )}
-              </div>
-            </div>
+            <AddressSearch
+              setValue={setValue}
+              register={register}
+              errors={errors}
+            />
             <div className="sm:col-span-2 sm:col-start-1">
               <label
                 htmlFor="foodCertifyName"
@@ -140,7 +126,7 @@ export default function StoreNewPage() {
               <div className="mt-2">
                 <select
                   {...register("foodCertifyName", { required: true })}
-                  className="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="outline-none block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
                   <option value="">식품인증구분 선택</option>
                   {FOOD_CERTIFY_ARR?.map((data) => (
@@ -162,12 +148,12 @@ export default function StoreNewPage() {
                 htmlFor="storeType"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                업종구분
+                업종구분 선택
               </label>
               <div className="mt-2">
                 <select
                   {...register("storeType", { required: true })}
-                  className="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="outline-none block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
                   <option value="">식품인증구분 선택</option>
                   {STORE_TYPE_ARR?.map((data) => (
@@ -190,6 +176,9 @@ export default function StoreNewPage() {
       <div className="mt-6 flex items-center justify-end gap-x-6">
         <button
           type="button"
+          onClick={() => {
+            router.back();
+          }}
           className="text-sm font-semibold leading-6 text-gray-900"
         >
           뒤로가기
