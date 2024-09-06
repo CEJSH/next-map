@@ -21,6 +21,7 @@ export default function StoreListPage() {
     q: q,
     district: district,
   };
+
   const fetchStores = async ({ pageParam = 1 }) => {
     const { data } = await axios("/api/stores?page=" + pageParam, {
       params: {
