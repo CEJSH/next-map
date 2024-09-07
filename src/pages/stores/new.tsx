@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import AddressSearch from "@/components/\bAddressSearch";
+import AddressSearch from "@/components/AddressSearch";
 import { StoreType } from "@/interface";
 
 export default function StoreNewPage() {

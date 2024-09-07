@@ -79,6 +79,9 @@ export default function Navbar() {
                 <Link
                   href="/api/auth/signin"
                   className="navbar__list--item--mobile"
+                  onClick={() => {
+                    setIsOpen(false);
+                  }}
                 >
                   로그인
                 </Link>
