@@ -160,7 +160,7 @@ export default function StorePage() {
             <Map lat={store?.lat} lng={store?.lng} zoom={1} />
             <Marker store={store} />
           </div>
-          <Comments storeId={parseInt(id)} />
+          {typeof id === "string" && <Comments storeId={parseInt(id)} />}
         </>
       )}
     </>
