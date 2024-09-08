@@ -19,9 +19,7 @@ export default function Map({ lat, lng, zoom }: MapProps) {
   const setMap = useSetRecoilState(mapState);
   const location = useRecoilValue(locationState);
   const loadKakaoMap = () => {
-    console.log("script loaded");
-    window.kakao.maps.load(() => {
-      console.log("loaded");
+    window.kakao.maps.load(async () => {
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(

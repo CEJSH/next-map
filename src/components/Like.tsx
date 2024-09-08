@@ -4,6 +4,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useQuery } from "react-query";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { event } from "@/lib/gtag";
 
 interface LikeProps {
   storeId: number;
@@ -35,12 +36,25 @@ export default function Like({ storeId }: LikeProps) {
         } else {
           toast.warn("찜을 취소했습니다.");
         }
+
+        event({
+          action: "click_like",
+          category: "like",
+          label: like.status === 201 ? "create_like" : "delete_like",
+          value: storeId,
+        });
         refetch();
       } catch (e) {
         console.log(e);
       }
     } else if (status === "unauthenticated") {
       toast.warn("로그인 후 이용해주세요.");
+      event({
+        action: "click_like",
+        category: "like",
+        label: "need_login_like",
+        value: storeId,
+      });
     }
   };
   return (

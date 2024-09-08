@@ -6,15 +6,12 @@ import Pagination from "@/components/Pagination";
 import { CommentApiResponse } from "@/interface";
 import axios from "axios";
 import { useSession, signOut } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "react-query";
 
-export default function Example({
-  searchParams,
-}: {
-  searchParams: { page?: string };
-}) {
-  const { data: session } = useSession();
-  const page = searchParams?.page || "1";
+export default function MyPage() {
+  const searchParams = useSearchParams();
+  const page = searchParams?.get("page") || "1";
 
   const fetchComments = async () => {
     const { data } = await axios(
@@ -22,7 +19,7 @@ export default function Example({
     );
     return data as CommentApiResponse;
   };
-
+  const { data: session } = useSession();
   const { data: comments, refetch } = useQuery(
     `comment-${page}`,
     fetchComments
