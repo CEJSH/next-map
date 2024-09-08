@@ -11,14 +11,33 @@ export default function Markers({ stores }: MarkerProps) {
   const map = useRecoilValue(mapState);
   const setCurrentStore = useSetRecoilState(currentStoreState);
   const [location, setLocation] = useRecoilState(locationState);
+  const categoryToEnglish = (category?: string | null): string => {
+    if (!category) return "default";
+    const categoryMap: { [key: string]: string } = {
+      한식: "korean",
+      카페: "cafe",
+      분식: "snack",
+      동남아: "southeast_asian",
+      양식: "western",
+      술집: "pub",
+      베이커리: "bakery",
+      인도_중동: "indian_middle_eastern",
+      중국식: "chinese",
+      탕류: "soup",
+      일식: "japanese",
+      복어취급: "puffer_fish",
+      default: "default",
+    };
+
+    return categoryMap[category] || "default"; // 매핑되지 않은 경우 기본값 사용
+  };
 
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
       // 식당 데이터 마커 띄우기
       stores?.map((store) => {
-        var imageSrc = store?.category
-            ? `/images/markers/${store?.category}.png`
-            : "/images/markers/default.png",
+        const englishCategory = categoryToEnglish(store?.category);
+        var imageSrc = `/images/markers/${englishCategory}.png`,
           imageSize = new window.kakao.maps.Size(40, 40),
           imageOption = { offset: new window.kakao.maps.Point(27, 69) };
 
