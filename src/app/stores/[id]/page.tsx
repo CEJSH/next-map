@@ -6,7 +6,6 @@ import { StoreType } from "@/interface";
 import Loader from "@/components/Loader";
 import Map from "@/components/Map";
 import Marker from "@/components/Marker";
-
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -166,7 +165,7 @@ export default function StorePage({ params, searchParams }: ParamsProps) {
             <Marker store={store} />
           </div>
           {typeof id === "string" && (
-            <Comments storeId={parseInt(id)} page={searchParams?.page} />
+            <Comments storeId={parseInt(id)} page={searchParams.page} />
           )}
         </>
       )}
