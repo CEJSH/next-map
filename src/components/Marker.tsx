@@ -1,5 +1,6 @@
 import { mapState } from "@/atom";
 import { StoreType } from "@/interface";
+import categoryToEnglish from "@/utils/convert";
 import { useCallback, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 
@@ -12,10 +13,8 @@ export default function Marker({ store }: MarkerProps) {
   const loadKakaoMarker = useCallback(() => {
     if (map && store) {
       // 현재 선택한 식당 데이터 마커 하나 띄우기
-
-      var imageSrc = store?.category
-          ? `/images/markers/${store?.category}.png`
-          : "/images/markers/default.png",
+      const englishCategory = categoryToEnglish(store?.category);
+      var imageSrc = `/images/markers/${englishCategory}.png`,
         imageSize = new window.kakao.maps.Size(40, 40),
         imageOption = { offset: new window.kakao.maps.Point(27, 69) };
 

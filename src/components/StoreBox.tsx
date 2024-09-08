@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { currentStoreState } from "@/atom";
 import Like from "./Like";
+import categoryToEnglish from "@/utils/convert";
 
 export default function StoreBox() {
   const router = useRouter();
@@ -27,7 +28,9 @@ export default function StoreBox() {
                 <Image
                   src={
                     store?.category
-                      ? `/images/markers/${store?.category}.png`
+                      ? `/images/markers/${categoryToEnglish(
+                          store?.category
+                        )}.png`
                       : "/images/markers/default.png"
                   }
                   width={40}

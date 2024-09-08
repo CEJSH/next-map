@@ -1,4 +1,5 @@
 import { StoreType } from "@/interface";
+import categoryToEnglish from "@/utils/convert";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -8,6 +9,7 @@ interface StoreListProps {
 }
 export default function StoreList({ store, i }: StoreListProps) {
   const router = useRouter();
+  const englishCategory = categoryToEnglish(store?.category);
   return (
     <li
       className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50"
@@ -24,7 +26,7 @@ export default function StoreList({ store, i }: StoreListProps) {
           alt="아이콘 이미지"
           src={
             store?.category
-              ? `/images/markers/${store?.category}.png`
+              ? `/images/markers/${englishCategory}.png`
               : "/images/markers/default.png"
           }
         />
