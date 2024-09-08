@@ -1,20 +1,24 @@
-import { useRouter } from "next/router";
+"use client";
+import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { StoreType } from "@/interface";
 import Loader from "@/components/Loader";
 import Map from "@/components/Map";
 import Marker from "@/components/Marker";
-
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import Like from "@/components/Like";
 import Comments from "@/components/comments";
 
-export default function StorePage() {
+interface ParamsProps {
+  params: { id: string };
+  searchParams: { page: string };
+}
+export default function StorePage({ params, searchParams }: ParamsProps) {
   const router = useRouter();
-  const { id } = router.query;
+  const id = params.id;
   const { status } = useSession();
 
   const handleDelete = async () => {
@@ -160,7 +164,9 @@ export default function StorePage() {
             <Map lat={store?.lat} lng={store?.lng} zoom={1} />
             <Marker store={store} />
           </div>
-          {typeof id === "string" && <Comments storeId={parseInt(id)} />}
+          {typeof id === "string" && (
+            <Comments storeId={parseInt(id)} page={searchParams.page} />
+          )}
         </>
       )}
     </>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useEffect, useCallback } from "react";
 import Loading from "@/components/Loading";
 import { StoreType } from "@/interface";

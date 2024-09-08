@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   AiOutlineClose,
@@ -6,7 +8,7 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { currentStoreState } from "@/atom";
 import Like from "./Like";
