@@ -5,12 +5,15 @@ import Pagination from "@/components/Pagination";
 import StoreList from "@/components/StoreList";
 import { LikeApiResponse, LikeInterface } from "@/interface";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useQuery } from "react-query";
 
-export default function LikesPage() {
-  const searchParams = useSearchParams();
-  const page = searchParams?.get("page") || "1";
+export default function LikesPage({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
+  const page = searchParams.page || "1";
   const fetchLikes = async () => {
     const { data } = await axios(`/api/likes?limit=10&page=${page}`);
     return data as LikeApiResponse;
