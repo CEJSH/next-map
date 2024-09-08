@@ -1,16 +1,20 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import CommentList from "@/components/comments/CommentList";
 import Pagination from "@/components/Pagination";
 import { CommentApiResponse } from "@/interface";
 import axios from "axios";
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
-export default function Example() {
+export default function Example({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
   const { data: session } = useSession();
-  const router = useRouter();
-  const { page = "1" }: any = router.query;
+  const page = searchParams?.page || "1";
 
   const fetchComments = async () => {
     const { data } = await axios(

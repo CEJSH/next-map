@@ -1,9 +1,11 @@
+"use client";
+
 import { useEffect } from "react";
 
 import { AiOutlineGoogle } from "react-icons/ai";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { SiNaver } from "react-icons/si";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { signIn, useSession } from "next-auth/react";
 

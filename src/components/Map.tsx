@@ -1,3 +1,4 @@
+"use client";
 /** global kakao */
 import Script from "next/script";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -17,9 +18,10 @@ interface MapProps {
 export default function Map({ lat, lng, zoom }: MapProps) {
   const setMap = useSetRecoilState(mapState);
   const location = useRecoilValue(locationState);
-
   const loadKakaoMap = () => {
+    console.log("script loaded");
     window.kakao.maps.load(() => {
+      console.log("loaded");
       const mapContainer = document.getElementById("map");
       const mapOption = {
         center: new window.kakao.maps.LatLng(
@@ -33,6 +35,7 @@ export default function Map({ lat, lng, zoom }: MapProps) {
       setMap(map);
     });
   };
+
   return (
     <>
       <Script
