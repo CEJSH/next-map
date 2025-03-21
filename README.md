@@ -1,8 +1,7 @@
 # Next map
 
 - React, Next.js를 이용한 지도 맛집 프로젝트 입니다.
-- [Pull Request]탭에서 각 기능별 코드를 확인할 수 있습니다.
-- 사이트 링크 :[https://next-map-blush.vercel.app/](https://next-map-blush.vercel.app/)
+
 
 <br />
 
