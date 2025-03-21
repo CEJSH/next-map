@@ -2,7 +2,6 @@
 
 - React, Next.js를 이용한 지도 맛집 프로젝트 입니다.
 
-
 <br />
 
 # 프로젝트 설명
@@ -65,7 +64,6 @@
 - Prisma 기본 문법
 - Next-auth 인증
 - API 개념 및 kakao map API 연동 개념
-- Godaddy 호스팅
 
 <br />
 
